@@ -1,0 +1,50 @@
+
+
+mqtt:
+  broker:127.0.0.1
+  port: "1883 or 8883"
+  protocol: 3.1.1
+  client_id: Home-assistant
+  username: "your username"
+  password: "your password"
+  discovery: true
+  discovery_prefix: homeassistant
+  
+  
+alarm_control_panel:
+  - platform: manual
+    name: Home Security Alarm
+    code: 1234
+    arming_time: 20
+    delay_time: 20
+    trigger_time: 2
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      delay_time: 0
+    armed_night:
+      delay_time: 0  
+  
+  
+binary_sensor:
+  - platform: mqtt
+    name: "Main Door"
+    state_topic: "home/sensor/door"
+    qos: 1
+    payload_on: "open"
+    payload_off: "close"
+    off_delay: on
+switch:
+  - platform: mqtt
+    name: "Siren"
+    state_topic: "home/alarm"
+    command_topic: "home/alarm/set"
+    payload_on: "1"
+    payload_off: "0"
+    state_on: "on"
+    state_off: "off"
+    optimistic: false
+    qos: 0
+    retain: true
+    
+    
